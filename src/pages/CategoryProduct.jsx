@@ -19,8 +19,8 @@ const CategoryProduct = () => {
 
     const getFilterData=async()=>{
         try {
-            const res=await axios.get(`https://fakestoreapi.in/api/products/category?type=${category}`)
-            const data=res.data.products
+            const res=await axios.get(`https://fakestoreapi.com/products/category/${category}`)
+            const data=res.data;
             setSearchData(data)
         } catch (error) {
             console.log(error)
@@ -31,7 +31,7 @@ const CategoryProduct = () => {
     useEffect(()=>{
         getFilterData()
         window.scrollTo(0,0)
-    },[])
+    },[category]);
 
   return (
     <div>
@@ -50,7 +50,7 @@ const CategoryProduct = () => {
         </div>):(
             <div className='flex items-center justify-center h-[400px]'>
                 <video muted autoPlay loop>
-                    <source src={Loading} tpe='video/webm'/>
+                    <source src={Loading} type='video/webm'/>
                 </video>
             </div>
         )

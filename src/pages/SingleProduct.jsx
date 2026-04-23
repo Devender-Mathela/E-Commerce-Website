@@ -9,16 +9,16 @@ import { useCart } from "../context/CartContext";
 const SingleProduct = () => {
   const params = useParams();
   //console.log(params) //getting id of the product
-  const [SingleProduct, setSingleProduct] = useState("");
+  const [SingleProduct, setSingleProduct] = useState(null);
 
   const {addToCart}=useCart()
 
   const getSingleProduct = async () => {
     try {
       const res = await axios.get(
-        `https://fakestoreapi.in/api/products/${params.id}`
+        `https://fakestoreapi.com/products/${params.id}`
       );
-      const product = res.data.product;
+      const product = res.data;
       setSingleProduct(product);
     } catch (error) {
       console.log(error);
@@ -27,7 +27,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     getSingleProduct();
-  }, []);
+  }, [params.id]);
 
   const OriginalPrice=Math.round(SingleProduct.price+(SingleProduct.price * SingleProduct.discount / 100))
 
