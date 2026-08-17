@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import loading from "../assets/Loading4.webm";
 import Breadcrums from "../Components/Breadcrums";
-import { IoCartOutline } from "react-icons/io5";
 import { useCart } from "../context/CartContext";
+import { FaChevronLeft } from "react-icons/fa6";
 
 const SingleProduct = () => {
   const params = useParams();
-  //console.log(params) //getting id of the product
+  const navigate = useNavigate();
   const [SingleProduct, setSingleProduct] = useState(null);
 
   const {addToCart}=useCart()
@@ -29,47 +29,74 @@ const SingleProduct = () => {
     getSingleProduct();
   }, [params.id]);
 
-  const OriginalPrice=Math.round(SingleProduct.price+(SingleProduct.price * SingleProduct.discount / 100))
-
   return (
     <>
       {SingleProduct ? 
-        <div className="px-4 pb-4 md:px-0">
-            <Breadcrums title={SingleProduct.title}/>
-            <div className="max-w-6xl mx-auto md:p-6 grid grid-cols-1 md:grid-cols-2 gap-10">
-             {/* productsimage */}
-              <div className="w-full">
-                <img src={SingleProduct.image} 
-                alt={SingleProduct.title} className="rounded-2xl w-full object-cover"/>
-              </div>
-              {/* product details  */}
-              <div className="flex flex-col gap-6 ">
-                <h1 className="md:text-3xl text-xl font-bold text-gray-800">{SingleProduct.title}</h1>
-                <div className="text-gray-700">
-                  {SingleProduct.brand?.toUpperCase()} /{SingleProduct.category.toUpperCase()} /{SingleProduct.model}
-                </div>
-                <p className="text-xl text-red-500 font-bold">${SingleProduct.price} <span className="line-through text-gray-700">${OriginalPrice}</span> <span className="bg-red-500 text-white py-2 px-4 rounded-full">{SingleProduct.discount}% discount</span></p>
-                <p className="text-gray-600">{SingleProduct.description}</p>
+        <div className="min-h-screen bg-white pb-20 font-sans">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
+              <button 
+                onClick={() => navigate('/products')}
+                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors mb-10"
+              >
+                <FaChevronLeft /> Back to Shop
+              </button>
 
-                {/* quantity Selector  */}
-                <div className="flex items-center gap-4">
-                  <label htmlFor="" className="text-sm font-medium text-gray-700">Quantity</label>
-                  <input 
-                  type="number" min={1} 
-                  value={1}
-                  className="w-20 border border-gray-300 rounded-lg px-3 py-1 focus:outline:none focus:ring-2 focus:ring-red-500"/>
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24">
+               {/* Product Image */}
+                <div className="md:col-span-6 lg:col-span-7 bg-gray-50 flex items-center justify-center p-10 min-h-[500px]">
+                  <img 
+                    src={SingleProduct.image} 
+                    alt={SingleProduct.title} 
+                    className="w-full max-w-md mix-blend-multiply object-contain"
+                  />
                 </div>
-                <div className="flex gap-4 mt-4">
-                  <button
-                  onClick={()=>addToCart(SingleProduct)}
-                  className="px-6 flex gap-2 py-2 text-lg bg-red-500 rounded-md text-white"><IoCartOutline className="w-6 h-6"/>Add to Cart</button>
+                
+                {/* Product Details */}
+                <div className="md:col-span-6 lg:col-span-5 flex flex-col justify-center">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">
+                        {SingleProduct.category}
+                      </h3>
+                      <h1 className="text-3xl font-bold tracking-tighter leading-tight text-gray-900 mb-4">
+                        {SingleProduct.title}
+                      </h1>
+                      <p className="text-2xl font-medium text-gray-900">
+                        ${SingleProduct.price.toFixed(2)}
+                      </p>
+                    </div>
+                    
+                    <div className="pt-6 border-t border-gray-100">
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {SingleProduct.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-6">
+                      <button
+                        onClick={() => addToCart(SingleProduct)}
+                        className="w-full bg-black text-white py-4 text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors"
+                      >
+                        Add to Bag
+                      </button>
+                    </div>
+                    
+                    <div className="pt-8 flex flex-col gap-4 text-xs font-medium text-gray-500 uppercase tracking-widest">
+                      <p className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span> 
+                        In Stock & Ready to Ship
+                      </p>
+                      <p>Free Standard Shipping</p>
+                      <p>Complimentary Returns</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
         </div>
       : 
-        <div className="flex items-center justify-center h-screen">
-          <video muted autoPlay loop>
+        <div className="flex items-center justify-center h-screen bg-white">
+          <video muted autoPlay loop className="w-24 opacity-50">
             <source src={loading} type="video/webm" />
           </video>
         </div>

@@ -3,45 +3,49 @@ import { Link } from 'react-router-dom'
 
 const About = () => {
   return (
-    <div className='min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-20'>
-      <div className='max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8 space-y-8'>
-        <h1 className='text-4xl  font-bold text-center'>About Zaptro</h1>
-
-        <p className='text-gray-700 text-base'>
-          Welcome to <sapn className='font-semibold text-red-600'>Zaptro</sapn>, your one-stop destination for the latest and greatest in electronics. From cutting-edge gadgets to must-have accessories, we’re here to power up your tech life with premium products and unbeatable service.
-        </p>
-
-        <div className='space-y-6'>
-          <h2 className='text-2xl font-semibold text-red-600'>Our Mission</h2>
-          <p className='text-gray-700 text-base'>
-             At Zaptro, our mission is to make innovative technology accessible to everyone. We’re passionate about connecting people with the tools and tech they need to thrive in a digital world — all at competitive prices and delivered with speed and care.
+    <div className='min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-20 font-sans'>
+      <div className='max-w-4xl mx-auto space-y-16'>
+        
+        <div className='text-center space-y-6'>
+          <h1 className='text-4xl md:text-5xl font-bold tracking-tighter uppercase'>The Zaptro Aesthetic</h1>
+          <p className='text-gray-500 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto'>
+            Curated essentials for the modern wardrobe. We believe in the power of minimalist design, premium materials, and timeless silhouettes.
           </p>
         </div>
 
-        <div className='space-y-6'>
-          <h2 className='text-2xl font-semibold text-red-600'>Why Choose Zaptro?</h2>
-          <ul className='list-disc pl-6 text-gray-700 space-y-2'>
-            <li>Top-quality electronic products from trusted brands</li>
-            <li>Lightning-fast and secure shipping</li>
-            <li>Reliable customer support, always ready to help</li>
-            <li>Easy returns and hassle-free shopping experience</li>
-          </ul>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-gray-100'>
+          <div className='space-y-4'>
+            <h2 className='text-sm font-bold uppercase tracking-widest text-black'>Our Philosophy</h2>
+            <p className='text-gray-600 leading-relaxed text-sm'>
+              At Zaptro, our mission is to redefine everyday luxury. We are passionate about creating clothing that feels as good as it looks, stripping away the unnecessary to focus on what truly matters: fit, fabric, and form.
+            </p>
+          </div>
+          <div className='space-y-4'>
+            <h2 className='text-sm font-bold uppercase tracking-widest text-black'>The Standard</h2>
+            <ul className='text-gray-600 space-y-2 text-sm list-none'>
+              <li className='flex items-center gap-2'><span className='w-1 h-1 bg-black rounded-full'></span> Uncompromising fabric quality</li>
+              <li className='flex items-center gap-2'><span className='w-1 h-1 bg-black rounded-full'></span> Ethical and sustainable sourcing</li>
+              <li className='flex items-center gap-2'><span className='w-1 h-1 bg-black rounded-full'></span> Minimalist, timeless designs</li>
+              <li className='flex items-center gap-2'><span className='w-1 h-1 bg-black rounded-full'></span> Exceptional craftsmanship</li>
+            </ul>
+          </div>
         </div>
 
-        <div className='space-y-6'>
-          <h2 className='text-2xl font-semibold text-red-600'>Our Vision</h2>
-          <p className='text-gray-700 text-base'>
-             We envision a future where technology elevates everyday life. At Zaptro, we’re committed to staying ahead of the curve, offering cutting-edge solutions that are both practical and affordable.
+        <div className='space-y-6 text-center pt-12 border-t border-gray-100'>
+          <h2 className='text-sm font-bold uppercase tracking-widest text-black'>Our Vision</h2>
+          <p className='text-gray-600 leading-relaxed text-sm max-w-2xl mx-auto'>
+             We envision a world where fashion transcends fleeting trends. A wardrobe should be a collection of reliable, elegant pieces that empower you to express your authentic self with confidence.
           </p>
         </div>
 
-        <div className='text-center mt-10'>
-          <h3 className='text-xl font-semibold text-red-600 mb-2'>Joins the Zaptro Family</h3>
-          <p className='text-gray-700 mb-4'>Whether you’re a tech enthusiast, a professional, or just looking for something cool and functional — Zaptro has something for everyone.</p>
-          <Link to={'/products'}><button className='bg-red-600 text-white px-6 py-2 rounded-xl hover:bg-red-700 transition duration-300'>Start Shopping</button></Link>
+        <div className='text-center pt-16'>
+          <Link to={'/products'}>
+            <button className='bg-black text-white px-10 py-4 text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors'>
+              Explore the Collection
+            </button>
+          </Link>
         </div>
       </div>
-      
     </div>
   )
 }

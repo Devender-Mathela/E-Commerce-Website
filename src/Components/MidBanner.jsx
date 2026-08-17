@@ -1,26 +1,30 @@
 import React from 'react'
-import banner from '../assets/banner1.jpg';
 
 const MidBanner = () => {
   return (
-            <div className='bg-gray-100 md:py-24'>
-            <div className='relative max-w-7xl mx-auto md:rounded-2xl pt-28 bg-cover bg-center h-[550px] md:h-[600px]' 
-            style={{
-                backgroundImage: `url(${banner})`, 
-                backgroundPosition:'center', 
-                backgroundAttachment:'fixed'
-            }}>
-                <div className='absolute inset-0 bg-black/60 md:rounded-2xl bg-opacity-50 flex items-center justify-center'>
-                    <div className='text-center text-white px-4'>
-                        <h1 className='text-3xl md:text-5xl lg:text-6xl font-bold mb-4'>
-                            Next-Gen Electronics At your Fingertips
-                        </h1>
-                        <p className='text-lg md:text-xl mb-6'>Discover the latest tech innovation with unbeatable prices and free shipping on all orders.</p>
-                        <button className='bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 md:py-3 md:px-6 rounded-lg transition duration-300'>Shop Now</button>
-                    </div>
+    <div className='bg-white py-16 md:py-24 font-sans'>
+        <div className='relative max-w-7xl mx-auto md:rounded-sm bg-cover bg-center h-[550px] md:h-[600px] overflow-hidden' 
+        style={{
+            backgroundImage: `url(https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop)`, 
+            backgroundPosition:'center 30%', 
+            backgroundAttachment:'fixed'
+        }}>
+            <div className='absolute inset-0 bg-black/40 flex items-center justify-center'>
+                <div className='text-center text-white px-4 flex flex-col items-center space-y-6'>
+                    <h3 className='text-xs font-bold uppercase tracking-widest'>The Summer Edit</h3>
+                    <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-none max-w-3xl'>
+                        ELEVATED ESSENTIALS
+                    </h1>
+                    <p className='text-sm md:text-base font-medium max-w-xl text-gray-200'>
+                        Discover the latest collection of timeless pieces designed for the modern wardrobe. Effortless style, uncompromising quality.
+                    </p>
+                    <button className='bg-white text-black font-bold uppercase tracking-widest text-xs py-4 px-10 hover:bg-gray-200 transition-colors mt-4'>
+                        Shop the Edit
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
   )
 }
 

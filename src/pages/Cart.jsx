@@ -1,208 +1,149 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { LuNotebookText } from "react-icons/lu";
-import { MdOutlineDeliveryDining } from "react-icons/md";
-import { GiShoppingBag } from "react-icons/gi";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
-import emptyCart from '../assets/empty-cart.png'
 
-const Cart=({location , getLocation})=> {
-  const { cartItem , updateQuantity, deleteItem} = useCart();
-  // console.log(cartItem)
-  // console.log(location)
-
+const Cart = ({ location, getLocation }) => {
+  const { cartItem, updateQuantity, deleteItem } = useCart();
   const { user } = useUser();
-  // console.log(user)
-
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const totalPrice = cartItem.reduce((total, item) => total + item.price, 0);
 
   return (
-    <div className="mt-10 max-w-6xl mx-auto mb-5 px-4 md:px-0">
-      {cartItem.length > 0 ? (
-        <div>
-          <h1 className="font-bold text-2xl">My Cart ({cartItem.length})</h1>
-          <div className="mt-10 ">
-            {cartItem.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="bg-gray-100 p-5 rounded-md flex items-center justify-between mt-3 w-full"
-                >
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={item.img}
-                      alt={item.title}
-                      className="w-20 h-20 rounded-md"
-                    />
-                    <div>
-                      <h1 className=" md:w-[300px] line-clamp-2">{item.title}</h1>
-                      <p className="text-red-500 font-semibold text-lg">
-                        {item.price}
-                      </p>
+    <div className="min-h-screen bg-white py-16 font-sans">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        {cartItem.length > 0 ? (
+          <div>
+            <h1 className="font-bold text-3xl tracking-tighter uppercase mb-12">Shopping Bag ({cartItem.length})</h1>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+              {/* Cart Items List */}
+              <div className="lg:col-span-2 space-y-8">
+                <div className="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-gray-200 text-xs font-bold uppercase tracking-widest text-gray-500">
+                  <div className="col-span-6">Product</div>
+                  <div className="col-span-3 text-center">Quantity</div>
+                  <div className="col-span-3 text-right">Total</div>
+                </div>
+
+                {cartItem.map((item, index) => {
+                  return (
+                    <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center py-6 border-b border-gray-100">
+                      <div className="col-span-6 flex gap-6">
+                        <div className="w-24 h-32 bg-gray-50 flex-shrink-0 flex items-center justify-center p-2">
+                            <img src={item.image || item.img} alt={item.title} className="w-full h-full object-contain mix-blend-multiply" />
+                        </div>
+                        <div className="flex flex-col justify-between py-1">
+                          <div>
+                            <h2 className="text-sm font-bold text-gray-900 line-clamp-2 leading-snug">{item.title}</h2>
+                            <p className="text-xs text-gray-500 mt-2">${item.price.toFixed(2)}</p>
+                          </div>
+                          <button 
+                            onClick={() => deleteItem(item.id)}
+                            className="text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors text-left flex items-center gap-1 mt-4"
+                          >
+                            <FaRegTrashAlt /> Remove
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="col-span-3 flex justify-center items-center mt-4 md:mt-0">
+                        <div className="flex items-center border border-gray-200">
+                          <button 
+                            onClick={() => updateQuantity(cartItem, item.id, 'decrease')}
+                            className="px-4 py-2 text-gray-500 hover:text-black hover:bg-gray-50 transition-colors"
+                          >-</button>
+                          <span className="px-4 py-2 text-sm font-medium">{item.quantity}</span>
+                          <button 
+                            onClick={() => updateQuantity(cartItem, item.id, 'increase')}
+                            className="px-4 py-2 text-gray-500 hover:text-black hover:bg-gray-50 transition-colors"
+                          >+</button>
+                        </div>
+                      </div>
+
+                      <div className="col-span-3 text-right mt-4 md:mt-0">
+                        <p className="text-sm font-bold text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="bg-red-500 text-white flex gap-4 p-2 rounded-md font-bold text-xl">
-                    <button 
-                    onClick={()=>updateQuantity(cartItem,item.id,'decrease')}
-                    className="cursor-pointer ">-</button>
-                    <span className="">{item.quantity}</span>
-                    <button 
-                    onClick={()=>updateQuantity(cartItem ,item.id,'increase')}
-                    className="cursor-pointer">+</button>
-                  </div>
-                  <span 
-                  onClick={()=>deleteItem(item.id)}
-                  className="hover:bg-white/60 transition-all rounded-full p-3 hover:shadow-2xl">
-                    <FaRegTrashAlt className="text-red-500 text-2xl cursor-pointer " />
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-          <div className=" grid grid-cols-1 md:grid-cols-2 md:gap-20">
-            <div className="bg-gray-100 rounded-md p-7 mt-4 space-y-2">
-              <h1 className="text-gray-800 font-bold text-xl ">
-                Delivery Info
-              </h1>
-              <div className=" flex flex-col space-y-1">
-                <label htmlFor="">Full Name</label>
-                <input
-                  type="text"
-                  value={user?.fullName}
-                  placeholder="Enter your name"
-                  className="p-2 rounded-md"
-                />
-              </div>
-              <div className=" flex flex-col space-y-1">
-                <label htmlFor="">Address</label>
-                <input
-                  type="text"
-                  value={location?.locality}
-                  placeholder="Enter your Address"
-                  className="p-2 rounded-md"
-                />
-              </div>
-              <div className="w-full gap-5 flex">
-                <div className=" flex flex-col space-y-1 w-full">
-                  <label>State</label>
-                  <input
-                    type="text"
-                    value={location?.principalSubdivision}
-                    placeholder="Enter your state"
-                    className="p-2 rounded-md w-full"
-                  />
-                </div>
-                <div className=" flex flex-col space-y-1 w-full">
-                  <label>PostCode</label>
-                  <input
-                    type="text"
-                    value={location?.postcode}
-                    placeholder="Enter your postcode"
-                    className="p-2 rounded-md w-full"
-                  />
-                </div>
+                  );
+                })}
               </div>
 
-              <div className="w-full gap-5 flex">
-                <div className=" flex flex-col space-y-1 w-full">
-                  <label>Country</label>
-                  <input
-                    type="text"
-                    value={location?.countryName}
-                    placeholder="Enter your country"
-                    className="p-2 rounded-md w-full"
-                  />
-                </div>
-                <div className=" flex flex-col space-y-1 w-full">
-                  <label>Phone No</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your Number"
-                    className="p-2 rounded-md w-full"
-                  />
-                </div>
-              </div>
-              <button className="bg-red-500 text-white px-3 py-1 rounded-md mt-3 cursor-pointer">
-                Submit
-              </button>
-              <div className="flex items-center justify-center w-full text-gray-700">
-                ---------OR---------
-              </div>
-              <div className="flex justify-center">
-                <button className="bg-red-500 text-white px-3 py-2 rounded-md" onClick={getLocation}>
-                  Detect Location
-                </button>
-              </div>
-            </div>
-            <div className="bg-white border border-gray-100 shadow-xl rounded-md p-7 mt-4 space-y-2 h-max">
-              <h1 className="text-gray-800 font-bold text-xl ">Bill details</h1>
-              <div className="flex justify-between items-center">
-                <h1 className="flex gap-1 items-center text-gray-700">
-                  <span>
-                    <LuNotebookText />
-                  </span>
-                  Items total
-                </h1>
-                <p>${totalPrice}</p>
-              </div>
-              <div className="flex justify-between items-center">
-                <h1 className="flex gap-1 items-center text-gray-700">
-                  <span>
-                    <MdOutlineDeliveryDining />
-                  </span>
-                  Delivery Charge
-                </h1>
-                <p className="text-red-500 font-semibold ">
-                  <span className=" line-through text-gray-600">${25}</span>Free
-                </p>
-              </div>
-              <div className="flex justify-between items-center">
-                <h1 className="flex gap-1 items-center text-gray-700">
-                  <span>
-                    <GiShoppingBag />
-                  </span>
-                  Handling Charge
-                </h1>
-                <p className="text-gray-700 font-semibold ">$5</p>
-              </div>
-              <hr className="text-gray-200 mt-2" />
-              <div className="flex jusce items-center">
-                <h1 className="font-semibold text-lg">Grand total </h1>
-                <p className="font-semibold text-lg">${totalPrice + 5}</p>
-              </div>
-              <div>
-                <h1 className="font-semibold text-gray-700 mb-3 mt-7">
-                  Apply Promo Code
-                </h1>
-                <div className="flex gap-3 ">
-                  <input
-                    type="text"
-                    placeholder="Enter code"
-                    className="p-2 rounded-md w-full"
-                  />
-                  <button className="bg-white text-black border border-gray-200 cursor-pointer py-1 rounded-md">
-                    Apply
+              {/* Order Summary & Delivery */}
+              <div className="space-y-8">
+                {/* Order Summary */}
+                <div className="bg-gray-50 p-8">
+                  <h2 className="text-sm font-bold uppercase tracking-widest border-b border-gray-200 pb-4 mb-6">Order Summary</h2>
+                  
+                  <div className="space-y-4 text-sm mb-6">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Subtotal</span>
+                      <span className="font-medium">${totalPrice.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Standard Delivery</span>
+                      <span className="font-medium uppercase text-xs">Free</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Handling</span>
+                      <span className="font-medium">$5.00</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between border-t border-gray-200 pt-6 mb-8">
+                    <span className="font-bold uppercase tracking-widest text-sm">Total</span>
+                    <span className="font-bold text-lg">${(totalPrice + 5).toFixed(2)}</span>
+                  </div>
+                  
+                  <button className="w-full bg-black text-white py-4 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
+                    Proceed to Checkout
                   </button>
                 </div>
+
+                {/* Delivery Info */}
+                <div className="border border-gray-200 p-8">
+                  <h2 className="text-sm font-bold uppercase tracking-widest mb-6">Shipping Details</h2>
+                  <div className="space-y-4 text-sm">
+                    <div>
+                      <input type="text" value={user?.fullName || ""} placeholder="Full Name" className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-black transition-colors bg-transparent placeholder-gray-400" />
+                    </div>
+                    <div>
+                      <input type="text" value={location?.locality || ""} placeholder="Address" className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-black transition-colors bg-transparent placeholder-gray-400" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <input type="text" value={location?.principalSubdivision || ""} placeholder="State" className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-black transition-colors bg-transparent placeholder-gray-400" />
+                      <input type="text" value={location?.postcode || ""} placeholder="Postcode" className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-black transition-colors bg-transparent placeholder-gray-400" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <input type="text" value={location?.countryName || ""} placeholder="Country" className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-black transition-colors bg-transparent placeholder-gray-400" />
+                      <input type="text" placeholder="Phone" className="w-full border-b border-gray-200 py-2 focus:outline-none focus:border-black transition-colors bg-transparent placeholder-gray-400" />
+                    </div>
+                    
+                    <div className="pt-4 flex flex-col items-center">
+                      <span className="text-xs text-gray-400 uppercase tracking-widest mb-4">Or Use Location</span>
+                      <button onClick={getLocation} className="w-full border border-black text-black py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-50 transition-colors">
+                        Detect Location
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <button className="bg-red-500 text-white px-3 py-2 w-full cursor-pointer mt-3 rounded-full">
-                Proceed to Checkout
-              </button>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-3 justify-center items-center h-[600px]">
-          <h1 className="text-red-500 font-bold text-5xl text-muted ">Oh no! your cart is empty</h1>
-          <img src={emptyCart} className="w=[400px]"
-          />
-          <button onClick={()=>navigate('/products')} className=" bg-red-500 text-white px-3 py-2 rounded-md cursor-pointer">Continue Shopping</button>
-        </div>
-      )}
+        ) : (
+          <div className="flex flex-col justify-center items-center h-[50vh] space-y-8">
+            <h1 className="text-3xl font-bold tracking-tighter uppercase text-center">Your Bag is Empty</h1>
+            <p className="text-gray-500 text-sm">Discover our latest arrivals and timeless essentials.</p>
+            <button 
+              onClick={() => navigate('/products')} 
+              className="bg-black text-white px-10 py-4 text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors"
+            >
+              Shop the Collection
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

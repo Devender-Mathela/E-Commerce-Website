@@ -2,39 +2,52 @@ import React from 'react'
 
 const Contact = () => {
   return (
-    <div className='min-h-screen bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] flex items-center justify-center px-4 py-10'>
-      <div className='backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl shadow-2xl p-10 w-full max-w-5xl'>
-        <h2 className='text-4xl font-bold text-white text-center mb-10'>Get in Touch with <span className='text-red-400'>Zaptro</span></h2>
+    <div className='min-h-screen bg-white flex items-center justify-center px-4 py-16 font-sans'>
+      <div className='w-full max-w-5xl'>
+        <div className='text-center mb-16'>
+            <h2 className='text-4xl md:text-5xl font-bold tracking-tighter uppercase mb-4'>Contact Us</h2>
+            <p className='text-gray-500 font-medium'>We're here to assist you with your orders and inquiries.</p>
+        </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-          <div className='text-white space-y-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-16'>
+          <div className='space-y-10'>
             <div>
-              <h3 className='text-2xl font-semibold'>Contact Info</h3>
-              <p className='text-gray-300'>Have a question or need support? We're here to help you with your electronics journey.</p>
+              <h3 className='text-sm font-bold uppercase tracking-widest text-black mb-4'>Client Services</h3>
+              <p className='text-gray-600 text-sm leading-relaxed'>
+                Our client services team is available to help you with size and fit advice, delivery, exchange and return queries, placing your order, and aftercare assistance.
+              </p>
             </div>
-            <div>
-              <p><strong>📍 Address:</strong>123 Tech Lane, Kolkata, India</p>
-              <p><strong>📧 Email:</strong>support@zaptro.com</p>
-              <p><strong>📞 Phone:</strong>+91 98765 43210</p>
+            <div className='space-y-4 text-sm text-gray-800'>
+              <p className='flex flex-col'>
+                <strong className='uppercase tracking-widest text-xs mb-1'>Studio</strong>
+                123 Fashion Avenue, New York, NY 10012
+              </p>
+              <p className='flex flex-col'>
+                <strong className='uppercase tracking-widest text-xs mb-1'>Email</strong>
+                inquiries@zaptro.com
+              </p>
+              <p className='flex flex-col'>
+                <strong className='uppercase tracking-widest text-xs mb-1'>Phone</strong>
+                +1 (800) 123-4567
+              </p>
             </div>
           </div>
+          
           <form className='space-y-6'>
             <div>
-              <label className='block text-white mb-1'>Your Name</label>
-              <input type='text' placeholder='John Doe' className='w-full px-4 py-2 bg-white/20 border border-white/30 text-white rounded-xl placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500' />
+              <label className='block text-xs font-bold uppercase tracking-widest text-black mb-2'>Name</label>
+              <input type='text' className='w-full px-4 py-3 bg-gray-50 border border-gray-200 text-black focus:outline-none focus:border-black transition-colors' />
             </div>
             <div>
-              <label className='block text-white mb-1'>Email Address</label>
-              <input type='email' placeholder='john@example.com' className='w-full px-4 py-2 bg-white/20 border border-white/30 text-white rounded-xl placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500'/>
+              <label className='block text-xs font-bold uppercase tracking-widest text-black mb-2'>Email</label>
+              <input type='email' className='w-full px-4 py-3 bg-gray-50 border border-gray-200 text-black focus:outline-none focus:border-black transition-colors'/>
             </div>
             <div>
-              <label className='block text-white mb-1'>Your Message</label>
-              <textarea rows="4" placeholder='Type your message...' className='w-full px-4 py-2 bg-white/20 border border-white/30 text-white rounded-xl placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500'></textarea>
+              <label className='block text-xs font-bold uppercase tracking-widest text-black mb-2'>Message</label>
+              <textarea rows="4" className='w-full px-4 py-3 bg-gray-50 border border-gray-200 text-black focus:outline-none focus:border-black transition-colors'></textarea>
             </div>
-            <button>
-              <button type='submit' className='w-full bg-gradient-to-r from-red-500 to-purple-500 text-white font-semibold py-2 rounded-xl hover:opacity-90 transition-all duration-300'>
-                Send Message 🚀
-              </button>
+            <button type='submit' className='w-full bg-black text-white font-bold text-sm tracking-widest uppercase py-4 hover:bg-gray-800 transition-colors'>
+              Submit
             </button>
           </form>
         </div>
