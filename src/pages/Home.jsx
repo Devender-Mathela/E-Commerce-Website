@@ -5,10 +5,12 @@ import Features from '../Components/Features'
 
 function Home() {
   return (
-    <div className='overflow-x-hidden'>
+    <div className='w-full'>
       <Carousel />
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-10">
+        <Features />
+      </div>
       <MidBanner/>
-      <Features />
     </div>
   )
 }

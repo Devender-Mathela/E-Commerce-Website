@@ -20,42 +20,43 @@ const Navbar = ({location, getLocation, openDropdown, setOpenDropDown}) => {
     }
 
   return (
-    <div className="bg-white py-3 shadow-2xl px-4 md:px-0">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <div className="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-4 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* logo section */}
         <div className="flex gap-7 items-center">
           <Link to="/">
-            <h1 className="font-bold text-3xl">
-              <span className="text-red-500 font-serif">Z</span>aptro
+            <h1 className="font-bold text-2xl tracking-widest uppercase text-black font-sans">
+              Zaptro
             </h1>
           </Link>
-          <div className="md:flex gap-1 cursor-pointer text-gray-700 items-center hidden">
-            <MapPin className="text-red-500" />
-            <span className="font-semibold ">
-              {location ? <div className="-space-y-2">
+          <div className="md:flex gap-2 cursor-pointer text-gray-500 items-center hidden text-sm hover:text-black transition-colors">
+            <MapPin size={16} />
+            <span className="font-medium">
+              {location ? <div className="-space-y-1">
                 <p>{location.countryName}</p>
                 <p>{location.city}</p>
               </div> : "Add Address"}
             </span>
-            <FaCaretDown onClick={toggleDropDown} />
+            <FaCaretDown size={12} onClick={toggleDropDown} />
           </div>
           {
-            openDropdown ? <div className="w-[250px] h-max shadow-2xl z-50 bg-white fixed top-16 left-60 border-2 p-5 border-gray-100 rounded-md"><h1 className="font-semibold mb-4 text-xl flex justify-between">Change Location <span onClick={toggleDropDown}><CgClose/></span></h1>
-            <button onClick={getLocation} className="bg-red-500 text-white px-3 py-1 rounded-md cursor-pointer hover:bg-red-400 ">Detect my location</button>
+            openDropdown ? <div className="w-[280px] h-max shadow-lg z-50 bg-white fixed top-16 left-60 border p-6 border-gray-200 rounded-sm">
+                <h1 className="font-medium mb-4 text-lg flex justify-between items-center text-black">
+                    Change Location 
+                    <button onClick={toggleDropDown} className="text-gray-400 hover:text-black"><CgClose/></button>
+                </h1>
+                <button onClick={getLocation} className="w-full bg-black text-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors">Detect my location</button>
             </div>:null
           }
         </div>
+        
         {/* menu-section */}
-        <nav className="flex gap-7 items-center">
-          <ul className="md:flex gap-7 items-center text-xl font-semibold hidden">
+        <nav className="flex gap-8 items-center">
+          <ul className="md:flex gap-8 items-center text-sm font-medium hidden uppercase tracking-wide">
             <NavLink
               to={"/"}
               className={({ isActive }) =>
-                `${
-                  isActive
-                    ? "border-b-3 transition-all border-red-500"
-                    : "text-black"
-                } cursor-pointer`
+                `${isActive ? "border-b-2 border-black pb-1" : "text-gray-500 hover:text-black"} transition-all cursor-pointer`
               }
             >
               <li>Home</li>
@@ -63,57 +64,48 @@ const Navbar = ({location, getLocation, openDropdown, setOpenDropDown}) => {
             <NavLink
               to={"products"}
               className={({ isActive }) =>
-                `${
-                  isActive
-                    ? "border-b-3 transition-all border-red-500"
-                    : "text-black"
-                } cursor-pointer`
+                `${isActive ? "border-b-2 border-black pb-1" : "text-gray-500 hover:text-black"} transition-all cursor-pointer`
               }
             >
-              <li>Products</li>
+              <li>Shop</li>
             </NavLink>
             <NavLink
               to={"about"}
               className={({ isActive }) =>
-                `${
-                  isActive
-                    ? "border-b-3 transition-all border-red-500"
-                    : "text-black"
-                } cursor-pointer`
+                `${isActive ? "border-b-2 border-black pb-1" : "text-gray-500 hover:text-black"} transition-all cursor-pointer`
               }
             >
-              <li>About</li>
+              <li>Editorial</li>
             </NavLink>
             <NavLink
               to={"contact"}
               className={({ isActive }) =>
-                `${
-                  isActive
-                    ? "border-b-3 transition-all border-red-500"
-                    : "text-black"
-                } cursor-pointer`
+                `${isActive ? "border-b-2 border-black pb-1" : "text-gray-500 hover:text-black"} transition-all cursor-pointer`
               }
             >
               <li>Contact</li>
             </NavLink>
           </ul>
-          <Link to={"/cart"} className="relative">
-            <IoCartOutline className="h-7 w-7" />
-            <span className="bg-red-500 px-2 rounded-full absolute -top-3 -right-3 text-white">
+          
+          <Link to={"/cart"} className="relative text-black hover:text-gray-600 transition-colors">
+            <IoCartOutline className="h-6 w-6" />
+            <span className="bg-black flex items-center justify-center h-4 w-4 rounded-full absolute -top-1 -right-1 text-white text-[10px] font-bold">
               {cartItem.length}
             </span>
           </Link>
+          
           {/* clerk.com */}
           <div className="hidden md:block">
             <SignedOut>
-                <SignInButton className="bg-red-500 text-white px-3 py-1 rounded-md cursor-pointer"/>
+                <SignInButton className="bg-black text-white px-4 py-2 text-sm font-medium uppercase tracking-wider hover:bg-gray-800 transition-colors"/>
             </SignedOut>
             <SignedIn>
                 <UserButton />
             </SignedIn>
           </div>
+          
           {
-            openNav?<HiMenuAlt3 onClick={()=>setOpenNav(false)} className="h-7 w-7 md:hidden"/>:<HiMenuAlt1 onClick={()=>setOpenNav(true)} className="h-7 w-7 md:hidden"/>
+            openNav ? <HiMenuAlt3 onClick={()=>setOpenNav(false)} className="h-6 w-6 md:hidden text-black"/> : <HiMenuAlt1 onClick={()=>setOpenNav(true)} className="h-6 w-6 md:hidden text-black"/>
           }
         </nav>
       </div>

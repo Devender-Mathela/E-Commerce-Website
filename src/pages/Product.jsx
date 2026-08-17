@@ -20,7 +20,7 @@ function Product() {
   useEffect(() => {
     fetchAllProducts();
     // window.scrollTo(0,0);
-  });
+  }, []);
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
@@ -83,8 +83,8 @@ function Product() {
                 handleCategoryChange={handleCategoryChange}
               />
               {filterData?.length > 0 ? (
-                <div className="flex flex-col justify-center items-center">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-7 mt-10">
+                <div className="flex flex-col justify-center items-center w-full">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 mt-10 w-full">
                     {filterData
                       ?.slice(page * 8 - 8, page * 8)
                       .map((product, index) => {

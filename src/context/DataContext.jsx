@@ -11,10 +11,14 @@ export const DataProvider=({children})=>{
     const fetchAllProducts=async()=>{
         try {
             const response = await axios.get("https://fakestoreapi.com/products")
-            // console.log(response)
-            const productsData=response.data.products || response.data || []
+            let productsData=response.data.products || response.data || []
+            
+            // Filter to only include clothing
+            productsData = productsData.filter(product => 
+                product.category === "men's clothing" || product.category === "women's clothing"
+            );
+            
             setData(productsData)
-            // console.log(data)
         } catch (error) {
             console.log(error)
         }

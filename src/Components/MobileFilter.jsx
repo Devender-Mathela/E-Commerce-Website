@@ -66,6 +66,7 @@ const MobileFilter = ({
             onChange={handleBrandChange}
           >
             {brandOnlyData?.map((item, index) => {
+              if (!item) return null;
               return (
                 <option key={index} value={item}>
                   {item.toUpperCase()}
